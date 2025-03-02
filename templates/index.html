@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Google Sheets Clone</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Spreadsheet Header -->
+        <div class="spreadsheet-header">
+            <div class="sheet-title">
+                <div class="sheet-icon">
+                    <i class="fas fa-table"></i>
+                </div>
+                <div class="title-container">
+                    <h1>Untitled spreadsheet</h1>
+                    <div class="menu-bar">
+                        <span>File</span>
+                        <span>Edit</span>
+                        <span>View</span>
+                        <span>Insert</span>
+                        <span>Format</span>
+                        <span>Data</span>
+                        <span>Tools</span>
+                        <span>Extensions</span>
+                        <span>Help</span>
+                    </div>
+                </div>
+            </div>
+            <div class="header-controls">
+                <button class="share-button">
+                    Share <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="user-avatar">J</div>
+            </div>
+        </div>
+
+        <!-- Toolbar -->
+        <div class="toolbar">
+            <button class="tool-button"><i class="fas fa-undo"></i></button>
+            <button class="tool-button"><i class="fas fa-redo"></i></button>
+            <button class="tool-button"><i class="fas fa-print"></i></button>
+            <button class="tool-button"><i class="fas fa-paint-roller"></i></button>
+            <div class="zoom-control">
+                100% <i class="fas fa-chevron-down"></i>
+            </div>
+            <button class="tool-button">£</button>
+            <button class="tool-button"><i class="fas fa-percentage"></i></button>
+            <button class="tool-button">.00</button>
+            <button class="tool-button">123</button>
+            <div class="font-control">
+                Arial <i class="fas fa-chevron-down"></i>
+            </div>
+            <div class="font-size-control">
+                <button><i class="fas fa-minus"></i></button>
+                <span>10</span>
+                <button><i class="fas fa-plus"></i></button>
+            </div>
+            <button class="tool-button"><i class="fas fa-bold"></i></button>
+            <button class="tool-button"><i class="fas fa-italic"></i></button>
+            <button class="tool-button"><i class="fas fa-strikethrough"></i></button>
+            <button class="tool-button color-button"></button>
+            <button class="tool-button"><i class="fas fa-align-left"></i></button>
+            <button class="tool-button"><i class="fas fa-ellipsis-v"></i></button>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Spreadsheet -->
+            <div class="spreadsheet">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="row-header"></th>
+                            {% for col in columns %}
+                            <th>{{ col }}</th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for row in rows %}
+                        <tr>
+                            <td class="row-header">{{ row }}</td>
+                            {% for col in columns %}
+                            <td class="editable-cell" data-row="{{ row }}" data-col="{{ col }}"></td>
+                            {% endfor %}
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Right Sidebar -->
+            <div class="sidebar">
+                <div class="sidebar-header">
+                    <div class="sidebar-title">
+                        <i class="fas fa-table"></i>
+                        <span>Tables</span>
+                    </div>
+                    <button class="close-button"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="sidebar-content">
+                    <h3>Start with pre-built tables</h3>
+                    <p>Includes smart chips, placeholders and custom colour palettes</p>
+
+                    <div class="table-preview">
+                        <div class="preview-header">
+                            <div class="preview-controls">
+                                <span class="preview-icon">Tr</span>
+                                <span>•</span>
+                                <span>👤</span>
+                                <span>•</span>
+                                <span>📅</span>
+                            </div>
+                        </div>
+                        <div class="preview-content">
+                            <div class="preview-row">
+                                <div class="preview-cell blue"></div>
+                                <div class="preview-cell gray"></div>
+                                <div class="preview-cell red"></div>
+                            </div>
+                            <div class="preview-row">
+                                <div class="preview-cell green"></div>
+                                <div class="preview-cell gray"></div>
+                                <div class="preview-cell orange"></div>
+                            </div>
+                            {% for i in range(6) %}
+                            <div class="preview-row">
+                                <div class="preview-cell gray"></div>
+                                <div class="preview-cell gray"></div>
+                                <div class="preview-cell gray"></div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="featured-section">
+                        <div class="featured-header">
+                            <h3>Featured</h3>
+                            <i class="fas fa-chevron-up"></i>
+                        </div>
+
+                        <div class="featured-items">
+                            <div class="featured-item">
+                                <i class="fas fa-table"></i>
+                                <span>Blank table</span>
+                            </div>
+                            <div class="featured-item">
+                                <i class="fas fa-tasks"></i>
+                                <span>Event tasks</span>
+                            </div>
+                            <div class="featured-item">
+                                <i class="fas fa-tasks"></i>
+                                <span>Project tasks</span>
+                            </div>
+                            <div class="featured-item">
+                                <i class="fas fa-chart-bar"></i>
+                                <span>Content tracker</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom Sheet Tabs -->
+        <div class="sheet-tabs">
+            <button class="add-sheet"><i class="fas fa-plus"></i></button>
+            <button class="menu-sheet"><i class="fas fa-bars"></i></button>
+            <div class="active-sheet">
+                Sheet1 <i class="fas fa-chevron-down"></i>
+            </div>
+        </div>
+
+        <!-- Status Bar -->
+        <div class="status-bar">
+            <div class="weather-info">
+                <span class="notification">3</span>
+                <span>19°C</span>
+                <span>Mostly cloudy</span>
+            </div>
+            <div class="system-info">
+                <span>ENG IN</span>
+                <span>10:09</span>
+                <span>28-02-2025</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cells = document.querySelectorAll('.editable-cell');
+
+            cells.forEach(cell => {
+                cell.addEventListener('click', function() {
+                    const currentText = cell.innerText;
+                    const input = document.createElement('input');
+                    input.type = 'text';
+                    input.value = currentText;
+                    cell.innerText = '';
+                    cell.appendChild(input);
+                    input.focus();
+
+                    input.addEventListener('blur', function() {
+                        const newValue = input.value;
+                        cell.innerText = newValue;
+
+                        // Check if the new value is a formula
+                        if (newValue.startsWith('=')) {
+                            const result = evaluateFormula(newValue, cell);
+                            cell.innerText = result;
+                        }
+                    });
+
+                    input.addEventListener('keypress', function(e) {
+                        if (e.key === 'Enter') {
+                            const newValue = input.value;
+                            cell.innerText = newValue;
+
+                            // Check if the new value is a formula
+                            if (newValue.startsWith('=')) {
+                                const result = evaluateFormula(newValue, cell);
+                                cell.innerText = result;
+                            }
+                        }
+                    });
+                });
+            });
+
+            // Function to evaluate formulas
+            function evaluateFormula(formula, cell) {
+                const formulaType = formula.slice(1).split('(')[0].toUpperCase();
+                const args = formula.match(/\(([^)]+)\)/)[1];
+
+                // Handle mathematical functions (e.g., SUM, AVERAGE, MAX, MIN, COUNT)
+                if (['SUM', 'AVERAGE', 'MAX', 'MIN', 'COUNT'].includes(formulaType)) {
+                    const range = args;
+                    const [startCell, endCell] = range.split(':');
+                    const startCol = startCell.match(/[A-Z]+/)[0];
+                    const startRow = parseInt(startCell.match(/\d+/)[0]);
+                    const endCol = endCell.match(/[A-Z]+/)[0];
+                    const endRow = parseInt(endCell.match(/\d+/)[0]);
+
+                    const values = [];
+                    for (let row = startRow; row <= endRow; row++) {
+                        for (let col = startCol; col <= endCol; col = nextColumn(col)) {
+                            const cellSelector = `.editable-cell[data-row="${row}"][data-col="${col}"]`;
+                            const cellElement = document.querySelector(cellSelector);
+                            if (cellElement) {
+                                const value = parseFloat(cellElement.innerText);
+                                if (!isNaN(value)) {
+                                    values.push(value);
+                                }
+                            }
+                        }
+                    }
+
+                    // Perform the calculation based on the formula type
+                    switch (formulaType) {
+                        case 'SUM':
+                            return values.reduce((acc, val) => acc + val, 0);
+                        case 'AVERAGE':
+                            return values.reduce((acc, val) => acc + val, 0) / values.length;
+                        case 'MAX':
+                            return Math.max(...values);
+                        case 'MIN':
+                            return Math.min(...values);
+                        case 'COUNT':
+                            return values.length;
+                        default:
+                            return 'Invalid Formula';
+                    }
+                }
+
+                // Handle data quality functions (e.g., UPPER, LOWER, TRIM, FIND_AND_REPLACE)
+                else {
+                    // Remove quotes if the argument is a string
+                    let value = args.replace(/['"]/g, '');
+
+                    switch (formulaType) {
+                        case 'UPPER':
+                            return value.toUpperCase();
+                        case 'LOWER':
+                            return value.toLowerCase();
+                        case 'TRIM':
+                            return value.trim();
+                        case 'FIND_AND_REPLACE': {
+                            const [find, replace, text] = args.split(',').map(arg => arg.replace(/['"]/g, '').trim());
+                            return text.replace(new RegExp(find, 'g'), replace);
+                        }
+                        default:
+                            return 'Invalid Formula';
+                    }
+                }
+            }
+
+            // Helper function to get the next column (e.g., A -> B, Z -> AA)
+            function nextColumn(col) {
+                let carry = 1;
+                let result = '';
+                for (let i = col.length - 1; i >= 0; i--) {
+                    let char = col.charCodeAt(i) + carry;
+                    if (char > 90) {
+                        char = 65;
+                        carry = 1;
+                    } else {
+                        carry = 0;
+                    }
+                    result = String.fromCharCode(char) + result;
+                }
+                if (carry) {
+                    result = 'A' + result;
+                }
+                return result;
+            }
+        });
+    </script>
+</body>
+</html>
